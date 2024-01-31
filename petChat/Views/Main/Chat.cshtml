@@ -1,0 +1,315 @@
+﻿@using petChat.Database;
+@model ChatVM;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/chat.css" asp-append-version="true">
+    <title>Chat</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+</head>
+<body>
+    <form asp-action="CreateChat" asp-controller="Main">
+    <div class="createChatBlock" id="createChatBlock">
+        <div class="createChatCreateBlock">
+            <label class="createChatCreateName">Enter chat name</label>
+            <input type="text" class="createChatCreateNameInput" name="chatName">
+            <div class="createChatUsersLabel">
+                <label>Select the users you want to add to the chat</label>
+            </div>
+        </div>
+        <div class="createChatUsersList">
+            @foreach(User user in Model.Users){
+                @if(user.IdUser!=Model.User.IdUser){
+            <div class="createChatUser">
+                <div class="createChatUserInfo">
+                    <div class="createChatUserInfoImage">
+                        <img src="~/images/cat.jpg" alt="userImage">
+                    </div>
+                    <div class="createChatUserInfoName"><label>@user.Nickname</label></div>
+                    <div class="createChatUserInfoDesc"><label>@user.Description</label></div>
+                    <div class="createChatUserInfoBool"><input type="checkbox" value="@user.IdUser" name="selectedUsers"></div>
+                </div>
+            </div>
+            }
+            }
+        </div>
+        <button class="createChatBtn">Create chat</button>
+    </div>
+    </form>
+    <div class="allBlock" id="allBlock">
+        @{
+            int ActualChat = Model.Chats != null && Model.Chats.Any() ? Model.Chats.Min(c => c.IdChat) : 0;
+          }
+        
+        <!--Chats List-->
+        <div class="chatsBlock">
+            <div class="chatsUpperBlock">
+                <div class="chatsOptionBlock">
+                    <img src="~/images/setting.png" alt="setting" class="chatsOption" onclick="showOption()">
+                    <div class="chatsOptionMenu" id="userMenu">
+                        <form asp-action="Account" asp-controller="Main" method="get">
+                        <button>MyAccount</button>
+                        </form>
+                        <form asp-action="ExitAccount" asp-controller="Main" method="get">
+                        <button>Exit account</button>
+                        </form>
+                        <button>Users</button>
+                        <button onclick="createChat()">Create chat</button>
+                    </div>
+                </div>
+                <div class="chatsLabelBlock" id="label">
+                    <label>Chats</label>
+                </div>
+                <div class="chatsSearchBlock" id="chatsSearch2">
+                    <img src="~/images/search.png" alt="search" class="chatsSearch" onclick="showChatsSearch()">
+                </div>
+                <div class="chatsSearchBlock2" id="chatsSearch">
+                    <input type="text" class="chatsSeacrhInput">
+                    <button class="chatsSearchBtn"><img src="~/images/search.png" alt="search"></button>
+                </div>
+            </div>
+
+            <div class="chatsChatsBlock" id="chatsList">
+                <input type="hidden" id="nicknameField" value="@Model.User.IdUser" />
+                <input type="hidden" id="nicknameVal" value="@Model.User.Nickname" />
+                @if (Model.Chats!=null)
+                {
+                    @foreach (var chat in Model.Chats)
+                    {
+                        if (chat.IdChat == ActualChat)
+                        {
+                            <div class="chatsActualChatBlock" id="chat-@chat.IdChat" data-chat-id="@chat.IdChat" data-chat-name="@chat.Name" onclick="changeChat(@chat.IdChat)">
+                                <div class="chatsChatImageBlock" >
+                                    <img src="~/images/chat (1).png" alt="chatImage" class="chatsChatImage">
+                                </div>
+                                <div class="chatsChatsInfoBlock">
+                                    <div class="chatsChatNameBlock"><label>@chat.Name</label></div>
+                                    <div class="chatsChatTimeBlock" id="chatTimeBlock"><label>12:09</label></div>
+                                </div>
+                                <div class="chatsChatTextBlock" id="chatText" ><label>hello</label></div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="chatsChatBlock" id="chat-@chat.IdChat" data-chat-id="@chat.IdChat" data-chat-name="@chat.Name" onclick="changeChat(@chat.IdChat)">
+                                <div class="chatsChatImageBlock" >
+                                    <img src="~/images/chat (1).png" alt="chatImage" class="chatsChatImage">
+                                </div>
+                                <div class="chatsChatsInfoBlock" >
+                                    <div class="chatsChatNameBlock"><label>@chat.Name</label></div>
+                                    <div class="chatsChatTimeBlock" id="chatTimeBlock"><label>12:09</label></div>
+                                </div>
+                                <div class="chatsChatTextBlock" id="chatText" ><label>hello</label></div>
+                            </div>
+                        }
+                    }
+                }
+            </div>
+
+        </div>
+        <!--Chat block-->
+        <div class="chatBlock">
+            <!--Upper chat block-->
+            <div class="chatUpperBlock">
+                <div class="chatInfoBlock">
+                    <div class="chatNameBlock">
+                        <label class="chatName">Chat Name</label>
+                    </div>
+                    <div class="chatUsersBlock">
+                        <label class="chatUsers" id="users">120 users</label>
+                    </div>
+                </div>
+
+                <div class="chatSearchBlock" id="chatSeacrh">
+                    <input type="text" class="chatSeacrhInput">
+                    <button class="chatSearchBtn"><img src="~/images/search.png" alt="search"></button>
+                </div>
+
+                <div class="chatMenuBlock">
+                    <img src="~/images/search.png" alt="search" class="chatSearch" onclick="showChatSearch()">
+                    <img src="~/images/option.png" alt="option" class="chatOption" onclick="showChatOption()">
+                    <img src="~/images/chat.png" alt="chat" class="chatChat" onclick="showChatInfo()">
+                    <div class="chatOptionBlock" id="chatOption">
+                        <button class="chatOptionBlockDel" onclick="deleteChat()">Delete chat</button>
+                        <button class="chatOptionBlockBtn">Edit chat</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!--Chat messages block-->
+            <input hidden id="idChat" value="@ActualChat" />
+            <div class="chatMessageBlock" id="chat">
+                @if (Model.Messages != null)
+                {
+                    @foreach (var message in Model.Messages)
+                    {
+                        if (message.IdChat == ActualChat)
+                        {
+                            if (message.IdUser == Model.User.IdUser)
+                            {
+                                <div class="myMessageBlock">
+                                    <div class="messageInfoBlock">
+                                        <div class="messageUserBlock">@Model.Users.Where(u=>u.IdUser==message.IdUser).First().Nickname</div>
+                                        <div class="messageTimeBlock"><label>12:08</label></div>
+                                    </div>
+                                    <div class="messageTextBlock">@message.Text</div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="messageBlock">
+                                    <div class="messageInfoBlock">
+                                        <div class="messageUserBlock">@Model.Users.Where(u=>u.IdUser==message.IdUser).First().Nickname</div>
+                                        <div class="messageTimeBlock"><label>12:08</label></div>
+                                    </div>
+                                    <div class="messageTextBlock">@message.Text</div>
+                                </div>
+                            }
+                            <div id="messageMenu" class="messageMenu">
+                                <button class="messageMenuInfo">Info</button>
+                                <button class="messageMenuDel">Delete</button>
+                            </div>
+                        }
+                    }
+                }
+            </div>
+
+            <!--Send input block-->
+            <div class="editMessageBlock" id="editMessage">
+                <div class="editMessageTextBlock"><label id="editText"></label></div>
+                <button class="editMessageCloseBtn" onclick="closeEdit()">X</button>
+            </div>
+            <div class="chatBottomBlock">
+                <input type="file" id="fileInput" style="display: none;">
+                <label for="fileInput" class="chatBottomFile">
+                    <img src="~/images/file.png" alt="File" class="chatFile">
+                </label>
+                <div class="chatInputBlock">
+                    <textarea type="text" class="chatInput" id="message"></textarea>
+                </div>
+                <div class="chatSendBlock">
+                    <button class="chatSend" id="sendBtn">Send</button>
+                    <button class="chatEdit" id="editBtn">Edit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="chatInfoBlock2" id="infoBlock">
+        <div class="chatInfoInfoBlock">
+            <div class="chatInfoInfoImageBlock">
+                <img src="~/images/chat (1).png" alt="chatImage">
+            </div>
+            <div class="chatInfoInfoChatName">
+                <label id="ChatName">@if (Model.Chats != null && Model.Chats.Any())
+                    {
+                        @Model.Chats.Where(c=>c.IdChat==ActualChat).First().Name
+                    }
+                </label>
+            </div>
+            <div class="chatInfoInfoChatDesc">
+                <label id="ChatDesc">@if (Model.Chats != null && Model.Chats.Any())
+                    {
+                        @Model.Chats.Where(c=>c.IdChat==ActualChat).First().Desription
+                    }
+                </label>
+            </div>
+        </div>
+        <div class="chatInfoUsersListBlock" id="users">
+            <div class="chatInfoUserLabel"><label>Chat users</label></div>
+            @if (Model.Chats != null && Model.Chats.Any())
+            {
+                @foreach(var id in Model.UsersChats)
+                {
+                    var chat = Model.Chats.Where(c => c.IdChat == id.IdChat).First();
+                    <div class="chatInfoUserBlock">
+                        <div class="chatInfoUserImage">
+                            <img src="~/images/cat.jpg" alt="userImage">
+                        </div>
+                        <div class="chatInfoUserName"><label>Dima</label></div>
+                        <div class="chatInfoUserDesc"><label>Descrep</label></div>
+                    </div>
+                }
+            }
+        }
+
+        </div>
+    </div>
+
+    <script>
+        function showChatSearch() {
+            var element = document.getElementById("chatSeacrh");
+            if (element.style.visibility === "hidden") {
+                element.style.visibility = "visible";
+            } else {
+                element.style.visibility = "hidden";
+            }
+        }
+        function showChatsSearch() {
+            var labelChats = document.getElementById("label");
+            var search = document.getElementById("chatsSearch");
+            if (labelChats.style.visibility === "visible") {
+                labelChats.style.visibility = "hidden";
+                search.style.visibility = "visible";
+            }
+            else {
+                labelChats.style.visibility = "visible";
+                search.style.visibility = "hidden";
+            }
+        }
+        function showChatOption(){
+            var option = document.getElementById("chatOption");
+            if (option.style.visibility === "visible") {
+                option.style.visibility = "hidden";
+            }
+            else {
+                option.style.visibility = "visible";
+            }
+        }
+        function showChatInfo() {
+            var chatSearch = document.getElementById("chatsSearch2");
+            var infoBlock = document.getElementById("infoBlock");
+            var chatBlock = document.getElementById("allBlock");
+            var time = document.getElementById("chatTimeBlock");
+            var chatText = document.getElementById("chatText");
+            if (chatBlock.style.width === "98%") {
+                chatBlock.style.width = "66%";
+                infoBlock.style.width = "32%";
+                infoBlock.style.border = "3px solid #123C69";
+                chatSearch.style.marginTop = "-33.2%";
+                time.style.left = "70%";
+                chatText.style.width = "50%";
+            } else {
+                chatBlock.style.width = "98%";
+                infoBlock.style.width = "0%";
+                infoBlock.style.border = "none";
+                chatSearch.style.marginTop = "-22.5%";
+                time.style.left = "86%";
+                chatText.style.width = "80%";
+            }
+        }
+        function showOption() {
+            var options = document.getElementById("userMenu");
+            if (options.style.visibility === "hidden") {
+                options.style.visibility = "visible";
+            }
+            else {
+                options.style.visibility = "hidden";
+            }
+        }
+        function createChat(){
+            var crearte = document.getElementById("createChatBlock");
+            if(crearte.style.visibility==="hidden"){
+                crearte.style.visibility="visible";
+            }
+            else{
+                crearte.style.visibility="hidden";
+            }
+        }
+    </script>
+    <script src="~/js/chat.js"></script>
+</body>
+</html>

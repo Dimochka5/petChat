@@ -1,0 +1,25 @@
+﻿@using petChat.Database;
+@model User;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/account.css" asp-append-version="true">
+    <title>Account</title>
+</head>
+<body>
+    <!--All Block-->
+    <div class="allBlock">
+        <!--User block-->
+        <div class="userBlock">
+            <div class="userImageBlock">
+                <img src="images/cat.jpg" alt="userImage">
+            </div>
+            <div class="userNameBlock"><label>@Model.Nickname</label></div>
+            <div class="userDescBlock"><label>@Model.Description</label></div>
+        </div>
+        <!--? block-->
+    </div>
+</body>
+</html>

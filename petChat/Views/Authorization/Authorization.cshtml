@@ -1,0 +1,96 @@
+﻿@using petChat.Database;
+@model User;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/registration.css" asp-append-version="true">
+    <title>Authorization</title>
+</head>
+<body>
+    <div class="allBlock">
+        <div class="changeBtn">
+            <button class="logBtn" id="log" onclick="login()">Login</button>
+            <button class="regBtn" id="reg" onclick="registration()">Registration</button>
+        </div>
+        <form asp-controller="Authorization" asp-action="Registration">
+        <div class="regBlock" id="regBlock">
+            <label class="rlName">Enter your name</label>
+            <input type="text" class="riName" asp-for="Nickname">
+            <label class="rlEmail">Enter your email</label>
+            <input type="email" class="riEmail" asp-for="Email">
+            <label class="rlPassword">Enter your password</label>
+            <input type="password" class="riPassword" id="rpassword" asp-for="Password">
+            <label class="rlPassword2">Confirm your password</label>
+            <input type="password" class="riPassword2" id="rpassword2">
+                <input type="radio" class="rRdBtn">
+            <label class="rlRdBtn">I accept the terms</label>
+            <button class="rBtn" onclick="registr()" id="rBtn">Registration</button>
+        </div>
+        </form>
+        <form asp-asp-controller="Authorization" asp-action="Login">
+        <div class="logBlock" id="logBlock">
+            <label class="lName">Enter your email</label>
+            <input type="email" class="iName" asp-for="Email">
+            <label class="lPassword">Enter your password</label>
+            <input type="password" class="iPassword" id="pass" asp-for="Password">
+            <button class="btnPassword" onclick="bPass()"><img src="~/images/minus-square.png" alt="false" class="fBtn" id="false"><img src="images/add-square.png" alt="true" class="tBtn" id="true"></button>
+            <input type="checkbox" class="rememberBlock" name="remember"><label class="lRemember">Remember me</label>
+            <button class="lgBtn">Login</button>
+        </div>
+        </form>
+    </div>
+  </body>
+</html>
+<script>
+    function registration() {
+        var password = document.getElementById("pass");
+        var reg = document.getElementById("reg");
+        var log = document.getElementById("log");
+        var rblock = document.getElementById("regBlock");
+        var lblock = document.getElementById("logBlock");
+        lblock.style.visibility = "hidden";
+        reg.style.fontWeight = "bold";
+        log.style.fontWeight = "normal";
+        rblock.style.width = "100%";
+        lblock.style.width = "0%";
+        rblock.style.visibility = "visible";
+        password.style.visibility = "hidden";
+    }
+    function login() {
+        var password = document.getElementById("pass");
+        var reg = document.getElementById("reg");
+        var log = document.getElementById("log");
+        var rblock = document.getElementById("regBlock");
+        var lblock = document.getElementById("logBlock");
+        rblock.style.visibility = "hidden";
+        log.style.fontWeight = "bold";
+        reg.style.fontWeight = "normal";
+        rblock.style.width = "0%";
+        lblock.style.width = "100%";
+        lblock.style.visibility = "visible";
+        password.style.visibility = "visible";
+    }
+    function bPass() {
+        var password = document.getElementById("pass");
+        var fals = document.getElementById("false");
+        var tru = document.getElementById("true");
+        if (password.type === "password") {
+            password.type = "text";
+            tru.style.visibility = "visible";
+            fals.style.visibility = "hidden";
+        } else {
+            password.type = "password";
+            fals.style.visibility = "visible";
+            tru.style.visibility = "hidden";
+        }
+    }
+    function registr() {
+        var regBtn = document.getElementById("rBtn");
+        var pass1 = document.getElementById("rpassword");
+        var pass2 = document.getElementById("rpasword2");
+        if (pass1.value === pass2.value) {
+        }
+    }
+</script>

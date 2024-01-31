@@ -1,0 +1,259 @@
+body{
+    background:#EDC7B7;
+}
+.allBlock{
+    background:#EEE2DC;
+    width:36%;
+    height:98%;
+    position:absolute;
+    left:32%;
+    top:1%;
+}
+/*Button change reg/log*/
+.changeBtn{
+    width:60%;
+    height:8%;
+    position: absolute;
+    background: #EDC7B7;
+    left:20%;
+    top:1%;
+    border-radius:10%;
+    overflow: hidden;
+}
+.logBtn{
+    height: 100%;
+    width:50%;
+    border:none;
+    background: rgba(172,59,97,.8);
+    font-size:250%;
+    font-family: 'Oswald', sans-serif;
+    font-weight: bold;
+    color:#123C69;
+}
+.regBtn{
+    height:100%;
+    width: 50%;
+    border:none;
+    position: absolute;
+    background: rgba(18, 60, 105,1);
+    color:#AC3B61;
+    font-size:220%;
+    font-weight: normal;
+    font-family: 'Oswald', sans-serif;
+}
+.regBlock{
+    width:0%;
+    height:90.7%;
+    position: absolute;
+    bottom:0;
+    visibility: hidden;
+}
+.logBlock{
+    width:100%;
+    height:90.7%;
+    position: absolute;
+    bottom:0;
+    right:0;
+}
+#regBlock{
+    transition: 0.5s;
+}
+#logBlock{
+    transition: 0.5s;
+}
+.lName{
+    font-size:350%;
+    color:#123C69;
+    font-family: 'Oswald', sans-serif;
+    position: absolute;
+    top:10%;
+    left:20%;
+}
+.iName{
+    width:80%;
+    height:6%;
+    border-radius: 5%;
+    border:none;
+    position: absolute;
+    color:#123C69;
+    font-size: 300%;
+    top:18%;
+    left:10%;
+    font-family: 'Montserrat', sans-serif;
+}
+.lPassword{
+    font-size:350%;
+    color:#123C69;
+    font-family: 'Oswald', sans-serif;
+    position: absolute;
+    top:35%;
+    left:15%;
+}
+.iPassword{
+    width:80%;
+    height:6%;
+    border-radius: 5%;
+    border:none;
+    position: absolute;
+    color:#123C69;
+    font-size: 300%;
+    top:43%;
+    left:10%;
+    font-family: 'Montserrat', sans-serif;
+    visibility: visible;
+}
+.btnPassword{
+    width:5%;
+    height:3%;
+    position: absolute;
+    top:44.7%;
+    left:92%;
+}
+.fBtn{
+    width:100%;
+    height:100%;
+    visibility: visible;
+}
+.tBtn{
+    width:100%;
+    height:100%;
+    position: absolute;
+    visibility: hidden;
+    left:0;
+}
+.rememberBlock{
+    width:8%;
+    height:40%;
+    position: absolute;
+    top:52%;
+    left:22%;
+}
+.lRemember{
+    position: absolute;
+    color:#123C69;
+    font-family: 'Oswald', sans-serif;
+    font-size:300%;
+    position: absolute;
+    top:69.5%;
+    left:32%;
+}
+.lgBtn{
+    width:60%;
+    height:10%;
+    position: absolute;
+    bottom:13%;
+    left:20%;
+    color:#123C69;
+    font-family: 'Oswald', sans-serif;
+    font-size:350%;
+    border:none;
+    background: rgba(172,59,97,.8);
+}
+.rlName{
+    color:#123C69;
+    font-family: 'Oswald', sans-serif;
+    font-size:300%;
+    position: absolute;
+    top:3%;
+    left:24%;
+}
+.riName{
+    width:80%;
+    height:6%;
+    border-radius: 5%;
+    border:none;
+    position: absolute;
+    top:9%;
+    left:10%;
+    color:#123C69;
+    font-size: 300%;
+    font-family: 'Montserrat', sans-serif;
+}
+.rlEmail{
+    font-size:300%;
+    color:#123C69;
+    font-family: 'Oswald', sans-serif;
+    position: absolute;
+    top:20%;
+    left:25%;
+}
+.riEmail{
+    width:80%;
+    height:6%;
+    border-radius: 5%;
+    border:none;
+    position: absolute;
+    top:26%;
+    left:10%;
+    color:#123C69;
+    font-size: 300%;
+    font-family: 'Montserrat', sans-serif;
+}
+.rlPassword{
+    font-size:300%;
+    color:#123C69;
+    font-family: 'Oswald', sans-serif;
+    position: absolute;
+    top:38%;
+    left:20%;
+}
+.riPassword{
+    width:80%;
+    height:6%;
+    border-radius: 5%;
+    border:none;
+    position: absolute;
+    top:44%;
+    left:10%;
+    color:#123C69;
+    font-size: 300%;
+    font-family: 'Montserrat', sans-serif;
+}
+.rlPassword2{
+    font-size:300%;
+    color:#123C69;
+    font-family: 'Oswald', sans-serif;
+    position: absolute;
+    top:55%;
+    left:15%;
+}
+.riPassword2{
+    width:80%;
+    height:6%;
+    border-radius: 5%;
+    border:none;
+    position: absolute;
+    top:61%;
+    left:10%;
+    position: absolute;
+    color:#123C69;
+    font-size: 300%;
+    font-family: 'Montserrat', sans-serif;
+}
+.rRdBtn{
+    width:5%;
+    height:5%;
+    position: absolute;
+    bottom:20%;
+    left:20%;
+}
+.rlRdBtn{
+    font-size:300%;
+    color:#123C69;
+    font-family: 'Oswald', sans-serif;
+    position: absolute;
+    bottom:19.5%;
+    left:28%;
+}
+.rBtn{
+    width:60%;
+    height:10%;
+    position: absolute;
+    bottom:5%;
+    left:20%;
+    font-family: 'Oswald', sans-serif;
+    font-size:350%;
+    border:none;
+    background: rgba(18, 60, 105,1);
+    color:#AC3B61;
+}
